@@ -4,7 +4,7 @@
   "version": "3.0.0",
   "author": "Ed <ed@kde.fr> (https://blog.kde.fr)",
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0",
+    "@mdx-js/mdx": "^2.1.5",
     "@mdx-js/react": "^1.4.4",
     "babel-plugin-styled-components": "^1.10.6",
     "gatsby": "^4.24.4",
