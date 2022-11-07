@@ -44,7 +44,7 @@ const Category = ({ pageContext: { category }, data: { allMdx } }) => {
               title={post.frontmatter.title}
               date={post.frontmatter.date}
               excerpt={post.excerpt}
-              timeToRead={post.timeToRead}
+              timeToRead={post.fields.timeToRead}
               slug={post.fields.slug}
               categories={post.frontmatter.categories}
               key={post.fields.slug}
@@ -85,9 +85,9 @@ export const postQuery = graphql`
         }
         fields {
           slug
+          timeToRead
         }
         excerpt(pruneLength: 200)
-        timeToRead
       }
     }
   }

@@ -21,34 +21,36 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: 'gatsby-remark-external-links',
-            options: {
-              target: '_blank',
-              rel: 'nofollow noopener noreferrer',
+        mdxOptions: {
+          gatsbyRemarkPlugins: [
+            {
+              resolve: 'gatsby-remark-external-links',
+              options: {
+                target: '_blank',
+                rel: 'nofollow noopener noreferrer',
+              },
             },
-          },
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 830,
-              quality: 90,
-              withWebp: true,
-              linkImagesToOriginal: false,
+            {
+              resolve: 'gatsby-remark-images',
+              options: {
+                maxWidth: 830,
+                quality: 90,
+                withWebp: true,
+                linkImagesToOriginal: false,
+              },
             },
-          },
-          // TODO: Replace with "mdx-component-autolink-headers"
-          {
-            resolve: 'gatsby-remark-autolink-headers',
-            options: {
-              maintainCase: false,
+            // TODO: Replace with "mdx-component-autolink-headers"
+            {
+              resolve: 'gatsby-remark-autolink-headers',
+              options: {
+                maintainCase: false,
+              },
             },
-          },
-        ],
-        // TODO: Remove this workaround
-        // https://github.com/gatsbyjs/gatsby/issues/15486
-        plugins: [`gatsby-remark-images`, `gatsby-remark-autolink-headers`],
+          ],
+          // TODO: Remove this workaround
+          // https://github.com/gatsbyjs/gatsby/issues/15486
+          plugins: [`gatsby-remark-images`, `gatsby-remark-autolink-headers`],
+        }
       },
     },
     'gatsby-plugin-catch-links',

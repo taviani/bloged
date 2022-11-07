@@ -76,7 +76,7 @@ const Post = ({ pageContext: { slug, prev, next }, data: { mdx: postNode } }) =>
           <PostContent>
             <MDXRenderer>{postNode.body}</MDXRenderer>
           </PostContent>
-          <PrevNext prev={prev} next={next} />
+          {/* <PrevNext prev={prev} next={next} /> */}
         </Content>
       </Wrapper>
     </Layout>
@@ -88,8 +88,8 @@ export default Post
 Post.propTypes = {
   pageContext: PropTypes.shape({
     slug: PropTypes.string.isRequired,
-    next: PropTypes.object,
-    prev: PropTypes.object,
+    // next: PropTypes.object,
+    // prev: PropTypes.object,
   }),
   data: PropTypes.shape({
     mdx: PropTypes.object.isRequired,
@@ -98,8 +98,8 @@ Post.propTypes = {
 
 Post.defaultProps = {
   pageContext: PropTypes.shape({
-    next: null,
-    prev: null,
+    // next: null,
+    // prev: null,
   }),
 }
 
@@ -113,7 +113,10 @@ export const postQuery = graphql`
         date
         categories
       }
-      timeToRead
+      fields {
+        slug
+        timeToRead
+      }
       parent {
         ... on File {
           mtime

@@ -37,14 +37,14 @@ const PrevNext = ({ next, prev }) => (
     {prev && (
       <Prev>
         <span>Précédent</span>
-        <Link to={prev.fields.slug}>{prev.frontmatter.title}</Link>
+        {/* <Link to={prev.fields.slug}>{prev.frontmatter.title}</Link> */}
       </Prev>
     )}
 
     {next && (
       <Next>
         <span>Suivant</span>
-        <Link to={next.fields.slug}>{next.frontmatter.title}</Link>
+        {/* <Link to={next.fields.slug}>{next.frontmatter.title}</Link> */}
       </Next>
     )}
   </Wrapper>

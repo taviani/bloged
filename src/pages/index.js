@@ -88,7 +88,7 @@ const IndexPage = ({
             title={post.node.frontmatter.title}
             date={post.node.frontmatter.date}
             excerpt={post.node.excerpt}
-            timeToRead={post.node.timeToRead}
+            timeToRead={post.node.fields.timeToRead}
             slug={post.node.fields.slug}
             categories={post.node.frontmatter.categories}
             key={post.node.fields.slug}
@@ -114,16 +114,16 @@ export const IndexQuery = graphql`
     allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
-          fields {
-            slug
-          }
           frontmatter {
             title
             date(formatString: "MM/DD/YYYY")
             categories
           }
+          fields {
+            slug
+            timeToRead
+          }
           excerpt(pruneLength: 200)
-          timeToRead
         }
       }
     }

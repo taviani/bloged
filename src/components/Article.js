@@ -47,17 +47,21 @@ const Excerpt = styled.p`
   margin-bottom: 1rem;
 `
 
-const Article = ({ title, date, excerpt, slug, timeToRead, categories }) => {
+const Article = ({ title, date, excerpt, slug, timeToRead, categories}) => {
   const firstChar = title.charAt(0)
+
+  let TTR = Math.round(timeToRead)
+
+  if (TTR == 0) TTR = 1;
 
   return (
     <Post>
       <Title>
         <Initiale>{firstChar}</Initiale>
-        <Link to={slug}>{title}</Link>
+        <Link to={`/blog/${slug}`}>{title}</Link>
       </Title>
       <Subline>
-        {moment(date, 'MM-DD-YYYY').format('LL')} &mdash; {timeToRead} mn de lecture &mdash; Dans{' '}
+        {moment(date, 'MM-DD-YYYY').format('LL')} &mdash; {TTR} mn de lecture &mdash; Dans{' '}
         {categories.map((cat, i) => (
           <React.Fragment key={cat}>
             {!!i && ', '}

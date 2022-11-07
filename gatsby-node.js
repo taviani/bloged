@@ -1,4 +1,8 @@
 const _ = require('lodash')
+const readingTime = require('reading-time')
+const slugify = require('slugify')
+const { createFilePath } = require('gatsby-source-filesystem')
+
 
 // graphql function doesn't throw an error so we have to check to check for the result.errors to throw manually
 const wrapper = promise =>
@@ -9,25 +13,20 @@ const wrapper = promise =>
     return result
   })
 
-exports.onCreateNode = ({ node, actions }) => {
+exports.onCreateNode = ({ node, actions}) => {
   const { createNodeField } = actions
 
-  let slug
-
   if (node.internal.type === 'Mdx') {
-    if (
-      Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
-      Object.prototype.hasOwnProperty.call(node.frontmatter, 'slug')
-    ) {
-      slug = `/${_.kebabCase(node.frontmatter.slug)}`
-    } else if (
-      Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
-      Object.prototype.hasOwnProperty.call(node.frontmatter, 'title')
-    ) {
-      slug = `/${_.kebabCase(node.frontmatter.title)}`
+    createNodeField({ 
+      node, 
+      name: 'timeToRead', 
+      value: readingTime(node.body).minutes })
+    createNodeField({ 
+      node, 
+      name: 'slug', 
+      value: slugify(node.frontmatter.title, {remove: /[*+~.()'"!:@]/g}) }) 
     }
-    createNodeField({ node, name: 'slug', value: slug })
-  }
+
 }
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -40,13 +39,17 @@ exports.createPages = async ({ graphql, actions }) => {
     graphql(`
       {
         allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
-          nodes {
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              categories
+          edges {
+            node { 
+              frontmatter {
+                title
+                categories
+              }
+              fields {
+                slug
+                timeToRead
+              }
+              id
             }
           }
         }
@@ -54,17 +57,18 @@ exports.createPages = async ({ graphql, actions }) => {
     `)
   )
 
-  const posts = result.data.allMdx.nodes
+  const posts = result.data.allMdx.edges
 
-  posts.forEach((n, index) => {
+  posts.forEach(({ node }, index) => {
     const next = index === 0 ? null : posts[index - 1]
     const prev = index === posts.length - 1 ? null : posts[index + 1]
 
+
     createPage({
-      path: n.fields.slug,
+      path: `/blog/${node.fields.slug}`,
       component: postTemplate,
       context: {
-        slug: n.fields.slug,
+        slug: node.fields.slug,
         prev,
         next,
       },
@@ -73,16 +77,16 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const categorySet = new Set()
 
-  _.each(posts, n => {
-    if (_.get(n, 'frontmatter.categories')) {
-      n.frontmatter.categories.forEach(cat => {
+  posts.forEach(({ node }) => {
+    if (_.get(node, 'frontmatter.categories')) {
+      _.forEach(cat => {
         categorySet.add(cat)
       })
     }
   })
 
   const categories = Array.from(categorySet)
-
+  console.log(categories)
   categories.forEach(category => {
     createPage({
       path: `/categories/${_.kebabCase(category)}`,
