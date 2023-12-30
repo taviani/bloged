@@ -4,12 +4,12 @@
   "version": "3.0.0",
   "author": "Ed <ed@kde.fr> (https://blog.kde.fr)",
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0",
+    "@mdx-js/mdx": "^2.1.5",
     "@mdx-js/react": "^1.4.4",
-    "babel-plugin-styled-components": "^1.13.3",
-    "gatsby": "^4.24.4",
+    "babel-plugin-styled-components": "^1.10.6",
+    "gatsby": "^5.0.0",
     "gatsby-plugin-catch-links": "^2.10.0",
-    "gatsby-plugin-google-analytics": "^2.11.0",
+    "gatsby-plugin-google-analytics": "^5.1.0",
     "gatsby-plugin-lodash": "^3.10.0",
     "gatsby-plugin-manifest": "^4.24.0",
     "gatsby-plugin-mdx": "^4.0.0",
@@ -32,7 +32,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^5.2.1",
-    "react-live": "^2.2.3",
+    "react-live": "^2.4.1",
     "styled-components": "^4.3.2",
     "typeface-bitter": "^0.0.71",
     "typeface-open-sans": "^0.0.75"
@@ -50,6 +50,7 @@
     "test": "echo \"no test specified\" && exit 0",
     "serve": "gatsby serve",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "deploy:ci": "gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/taviani/bloged.git",
     "lint": "eslint . --ext .js,.jsx --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .js,.jsx --fix --ignore-path .gitignore",
     "lint:ci": "npm lint --format junit -o results/eslint/result.xml",
@@ -64,7 +65,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
-    "gh-pages": "^2.0.1",
+    "gh-pages": "^4.0.0",
     "prettier": "^1.15.3"
   }
 }
