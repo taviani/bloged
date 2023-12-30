@@ -238,12 +238,9 @@ const Layout = ({ children, customSEO }) => {
           <div>
             <Link to="/about">À propos</Link>
               <div>
-                <a href="https://travis-ci.org/taviani/bloged">
-                  <img src="https://travis-ci.org/taviani/bloged.svg?branch=master" alt="Travis CI badge" />
-                </a>
                 <a href="https://www.codacy.com/app/devops_17/bloged">
                   <img
-                    src="https://api.codacy.com/project/badge/Grade/529ea8b9f5ac4c59a90fa51abdd34bb3"
+                    src="https://app.codacy.com/project/badge/Grade/96d42133e6d84996ae11258ae9f5d5e7"
                     alt="Codacy badge"
                   />
                 </a>
