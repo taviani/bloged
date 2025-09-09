@@ -3,13 +3,13 @@
 /* eslint react/prop-types: 0 */
 /* eslint react/destructuring-assignment: 0 */
 import React from 'react'
-import Highlight, { defaultProps } from 'prism-react-renderer'
-import theme from 'prism-react-renderer/themes/vsDark'
+import { Highlight } from 'prism-react-renderer'
+import { themes } from 'prism-react-renderer'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 import styled from 'styled-components'
 
 const StyledEditor = styled(LiveEditor)`
-  background: ${theme.plain.backgroundColor};
+  background: ${themes.vsDark.plain.backgroundColor};
   border-radius: 5px;
   margin-bottom: 1rem;
 `
@@ -17,7 +17,7 @@ const StyledEditor = styled(LiveEditor)`
 const Code = ({ codeString, language, ...props }) => {
   if (props['react-live']) {
     return (
-      <LiveProvider code={codeString} noInline={true} theme={theme}>
+      <LiveProvider code={codeString} noInline={true} theme={themes.vsDark}>
         <StyledEditor />
         <LiveError />
         <LivePreview />
@@ -25,7 +25,7 @@ const Code = ({ codeString, language, ...props }) => {
     )
   }
   return (
-    <Highlight {...defaultProps} code={codeString} language={language} theme={theme}>
+    <Highlight code={codeString} language={language} theme={themes.vsDark}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
           {tokens.map((line, i) => (

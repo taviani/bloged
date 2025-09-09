@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
-import moment from 'moment'
-import 'moment/locale/fr'
+import { format, parseISO } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from '../components'
 import config from '../../config'
@@ -65,7 +64,7 @@ const Post = ({ pageContext: { slug, prev, next }, data: { mdx: postNode } }) =>
         <Content>
           <Title>{post.title}</Title>
           <Subline>
-            {moment(post.date, 'YYYY-MM-DD').format('LL')} &mdash; {postNode.timeToRead} mn de lecture &mdash; Dans{' '}
+            {format(parseISO(post.date), 'PPPP', { locale: fr })} &mdash; Dans{' '}
             {post.categories.map((cat, i) => (
               <React.Fragment key={cat}>
                 {!!i && ', '}
@@ -74,7 +73,7 @@ const Post = ({ pageContext: { slug, prev, next }, data: { mdx: postNode } }) =>
             ))}
           </Subline>
           <PostContent>
-            <MDXRenderer>{postNode.body}</MDXRenderer>
+            {postNode.children}
           </PostContent>
           <PrevNext prev={prev} next={next} />
         </Content>
@@ -106,18 +105,17 @@ Post.defaultProps = {
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
-      body
+      children
       excerpt
       frontmatter {
         title
         date
         categories
       }
-      timeToRead
       parent {
         ... on File {
           mtime
-          birthtime
+          birthTime
         }
       }
     }

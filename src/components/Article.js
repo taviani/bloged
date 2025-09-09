@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
 import kebabCase from 'lodash/kebabCase'
-import moment from 'moment'
-import 'moment/locale/fr'
+import { format, parse } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 import Subline from './Subline'
 
@@ -47,7 +47,7 @@ const Excerpt = styled.p`
   margin-bottom: 1rem;
 `
 
-const Article = ({ title, date, excerpt, slug, timeToRead, categories }) => {
+const Article = ({ title, date, excerpt, slug, categories }) => {
   const firstChar = title.charAt(0)
 
   return (
@@ -57,7 +57,7 @@ const Article = ({ title, date, excerpt, slug, timeToRead, categories }) => {
         <Link to={slug}>{title}</Link>
       </Title>
       <Subline>
-        {moment(date, 'MM-DD-YYYY').format('LL')} &mdash; {timeToRead} mn de lecture &mdash; Dans{' '}
+        {format(parse(date, 'MM/dd/yyyy', new Date()), 'PPPP', { locale: fr })} &mdash; Dans{' '}
         {categories.map((cat, i) => (
           <React.Fragment key={cat}>
             {!!i && ', '}
@@ -77,6 +77,5 @@ Article.propTypes = {
   date: PropTypes.string.isRequired,
   excerpt: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
-  timeToRead: PropTypes.number.isRequired,
   categories: PropTypes.array.isRequired,
 }
