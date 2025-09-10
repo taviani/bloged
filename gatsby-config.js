@@ -46,9 +46,6 @@ module.exports = {
             },
           },
         ],
-        // TODO: Remove this workaround
-        // https://github.com/gatsbyjs/gatsby/issues/15486
-        plugins: [`gatsby-remark-images`, `gatsby-remark-autolink-headers`],
       },
     },
     'gatsby-plugin-catch-links',

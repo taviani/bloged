@@ -44,7 +44,6 @@ const Category = ({ pageContext: { category }, data: { allMdx } }) => {
               title={post.frontmatter.title}
               date={post.frontmatter.date}
               excerpt={post.excerpt}
-              timeToRead={post.timeToRead}
               slug={post.fields.slug}
               categories={post.frontmatter.categories}
               key={post.fields.slug}
@@ -73,7 +72,7 @@ Category.propTypes = {
 export const postQuery = graphql`
   query CategoryPage($category: String!) {
     allMdx(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { categories: { eq: $category } } }
     ) {
       totalCount
@@ -87,7 +86,6 @@ export const postQuery = graphql`
           slug
         }
         excerpt(pruneLength: 200)
-        timeToRead
       }
     }
   }
