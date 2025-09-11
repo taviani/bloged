@@ -51,7 +51,7 @@ const PostContent = styled.div`
   margin-top: 4rem;
 `
 
-const Post = ({ pageContext: { slug, prev, next }, data: { mdx: postNode } }) => {
+const Post = ({ pageContext: { slug, prev, next }, data: { mdx: postNode }, children }) => {
   const post = postNode.frontmatter
 
   return (
@@ -73,7 +73,7 @@ const Post = ({ pageContext: { slug, prev, next }, data: { mdx: postNode } }) =>
             ))}
           </Subline>
           <PostContent>
-            {postNode.children}
+            {children}
           </PostContent>
           <PrevNext prev={prev} next={next} />
         </Content>
@@ -105,7 +105,6 @@ Post.defaultProps = {
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
-      children
       excerpt
       frontmatter {
         title
