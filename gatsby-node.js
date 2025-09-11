@@ -44,6 +44,9 @@ exports.createPages = async ({ graphql, actions }) => {
             fields {
               slug
             }
+            internal {
+              contentFilePath
+            }
             frontmatter {
               title
               categories
@@ -62,7 +65,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     createPage({
       path: n.fields.slug,
-      component: postTemplate,
+      component: `${postTemplate}?__contentFilePath=${n.internal.contentFilePath}`,
       context: {
         slug: n.fields.slug,
         prev,
