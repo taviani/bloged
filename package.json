@@ -8,7 +8,7 @@
     "@mdx-js/react": "^2.3.0",
     "babel-plugin-styled-components": "^2.1.4",
     "date-fns": "^3.6.0",
-    "gatsby": "^5.0.0",
+    "gatsby": "^5.15.0",
     "gatsby-plugin-catch-links": "^5.15.0",
     "gatsby-plugin-google-analytics": "^5.15.0",
     "gatsby-plugin-lodash": "^6.15.0",
