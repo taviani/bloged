@@ -17,20 +17,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '23.10.0'
           cache: 'npm'
 
       - name: Install dependencies
         run: |
-          npm install -g npm@latest
-          npm audit fix --force
+          npm install -g gatsby-cli
           npm ci
+        env:
+          NODE_OPTIONS: --no-warnings
 
       - name: Build
         env:
           NODE_ENV: production
           GATSBY_ACTIVE_ENV: production
-        run: npm run build -- --prefix-paths
+          NODE_OPTIONS: --no-warnings
+        run: gatsby build --prefix-paths
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
