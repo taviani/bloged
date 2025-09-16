@@ -21,10 +21,16 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm install -g npm@latest
+          npm audit fix --force
+          npm ci
 
       - name: Build
-        run: npm run build
+        env:
+          NODE_ENV: production
+          GATSBY_ACTIVE_ENV: production
+        run: npm run build -- --prefix-paths
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
